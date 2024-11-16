@@ -7,3 +7,5 @@ target/
 *.ipr
 
 .DS_Store
+
+assets/accounts.txt
