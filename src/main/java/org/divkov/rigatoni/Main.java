@@ -21,17 +21,26 @@ class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         Driver[] drivers= objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
 
-        Arrays.stream(drivers).parallel()
+
+
+
+
+
+        Arrays.stream(Arrays.copyOfRange(drivers, 0, 1)).parallel()
                 .forEach(driver -> {
                     driver.createDriver();
 
                     driver.authenticate();
-//                    Main.random_sleep(4, 6);
+                    Main.random_sleep(4, 6);
 
-//                    driver.navigate(driver.getPlayables()[0]);
-//                    Main.random_sleep(4, 6);
-//
-//                    driver.pressPlayPlaylist();
+                    driver.navigate(driver.getPlayables()[0]);
+                    Main.random_sleep(4, 6);
+
+                    driver.play();
                 });
     }
+
+
+
+
 }

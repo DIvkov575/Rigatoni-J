@@ -9,6 +9,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Data
 @Jacksonized
@@ -70,10 +73,28 @@ public class Driver {
         Main.random_sleep(1,3);
     }
 
-    public void pressPlayPlaylist() {
-        this.driver.findElement(By.xpath(
-                        "//*[@id='main']/div/div[2]/div[4]/div[1]/div[2]/div[2]/div/main/section/div[2]/div[2]/div[2]/div/div/div[1]/button"))
-                .click();
+    public void play() {
+        String xpath;
+        String url = this.driver.getCurrentUrl();
+        System.out.println(url);
+
+        String regex = "https://open\\.spotify\\.com/([^/]+)/";
+        Matcher matcher = Pattern.compile(regex).matcher(url);
+
+        switch (matcher.group(1)) {
+            case "playlist" -> xpath = """
+                    //*[@id="main"]/div/div[2]/div[4]/div/div[2]/div[2]/div/main/section/div[2]/div[2]/div[2]/div/div/div[1]/button
+                    """;
+            case "artist" -> xpath = """
+                    //*[@id="main"]/div/div[2]/div[4]/div/div[2]/div[2]/div/main/section/div/div[2]/div[2]/div[2]/div/div/span/div/button
+                    """;
+            case "track" -> xpath = """
+                   //*[@id="main"]/div/div[2]/div[4]/div/div[2]/div[2]/div/main/section/div[3]/div[2]/div/div/div/button 
+                    """;
+            default  -> {throw new IllegalArgumentException("invalid page url to match");}
+        }
+
+        this.driver.findElement(By.xpath(xpath)).click();
     }
 
     public void navigate(String url) {
