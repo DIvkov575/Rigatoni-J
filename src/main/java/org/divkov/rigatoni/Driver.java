@@ -2,6 +2,7 @@ package org.divkov.rigatoni;
 
 import lombok.Data;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,7 +39,12 @@ public class Driver {
 
 //        System.setProperty("webdriver.chrome.driver", "assets/chromedriver");
 
+        String proxyAddress = "104.19.138.4:80";  // Example: "192.168.1.100:8080"
+        Proxy proxy = new Proxy();
+        proxy.setHttpProxy(proxyAddress).setSslProxy(proxyAddress);
+
         ChromeOptions options = new ChromeOptions();
+        options.setProxy(proxy);
         options.addArguments("--disable-logging", "--log-level=3", "--disable-infobars", "--disable-extensions");
         options.addArguments("--window-size=1366,768", "--mute-audio", "--disable-notifications");
         options.addArguments("--user-agent=" + userAgent, "--lang=" + language);

@@ -61,20 +61,20 @@ public class Controller {
     }
 
     public void initialization(Driver[] drivers, Driver driver ) {
-        this.scheduler.schedule(() -> {
+//        this.scheduler.schedule(() -> {
 
-            assert (driver.getDriver() == null);
+//            assert (driver.getDriver() == null);
 
             driver.init();
-            driver.authenticate();
-            Main.random_sleep(4, 6);
+//            driver.authenticate();
+//            Main.random_sleep(4, 6);
+//
+//            driver.play(driver.getPlayables()[0]);
 
-            driver.play(driver.getPlayables()[0]);
+//            this.schedule_event(driver);
 
-            this.schedule_event(driver);
-
-            System.out.println("Driver" + driver.getUsername() + "initialized at" + LocalTime.now());
-        }, (int) (Math.random() * 120 * 60_000), TimeUnit.MILLISECONDS);
+//            System.out.println("Driver" + driver.getUsername() + "initialized at" + LocalTime.now());
+//        }, (int) (Math.random() * 120 * 60_000), TimeUnit.MILLISECONDS);
 
     }
 
