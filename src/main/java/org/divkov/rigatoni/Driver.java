@@ -1,7 +1,6 @@
 package org.divkov.rigatoni;
 
 import lombok.Data;
-import lombok.extern.jackson.Jacksonized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,10 +10,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 @Data
-@Jacksonized
 public class Driver {
     private static final String[] SUPPORTED_LANGUAGES = {
             "en-US", "en-GB", "en-CA", "en-AU", "en-NZ", "fr-FR", "fr-CA", "fr-BE", "fr-CH", "fr-LU",
@@ -33,9 +30,8 @@ public class Driver {
 
     private WebDriver driver = null;
     private String state = "";
-    private String[] queue = new String[0];
 
-    public void createDriver() {
+    public void init() {
         Random random = new Random();
         String userAgent = USER_AGENTS[random.nextInt(USER_AGENTS.length)];
         String language= SUPPORTED_LANGUAGES[random.nextInt(SUPPORTED_LANGUAGES.length)];
@@ -73,10 +69,17 @@ public class Driver {
         Main.random_sleep(1,3);
     }
 
-    public void play() {
+    public boolean isAsleep() {
+        return this.state.isEmpty();
+    }
+
+    public void play(String url) {
         String xpath;
-        String url = this.driver.getCurrentUrl();
         System.out.println(url);
+
+        this.driver.get(url);
+        this.setState(url);
+        Main.random_sleep(4,6);
 
         String regex = "https://open\\.spotify\\.com/([^/]+)/";
         Matcher matcher = Pattern.compile(regex).matcher(url);
@@ -97,9 +100,9 @@ public class Driver {
         this.driver.findElement(By.xpath(xpath)).click();
     }
 
-    public void navigate(String url) {
-        this.driver.get(url);
-        this.setState(url);
+    public void sleep() {
+        this.driver.get("");
+        this.setState("");
     }
 
     public void close() {
