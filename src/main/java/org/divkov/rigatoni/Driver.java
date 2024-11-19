@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 @Data
 public class Driver {
+    private static final String proxyAddress = "geo.iproyal.com:12321";
     private static final String[] SUPPORTED_LANGUAGES = {
             "en-US", "en-GB", "en-CA", "en-AU", "en-NZ", "fr-FR", "fr-CA", "fr-BE", "fr-CH", "fr-LU",
             "de-DE", "de-AT", "de-CH", "de-LU", "es-ES", "es-MX", "es-AR", "es-CL", "es-CO", "es-PE",
@@ -60,18 +61,19 @@ public class Driver {
     private String state = "";
 
     public void init() {
+        System.setProperty("webdriver.chrome.driver", "assets/chromedriver");
         Random random = new Random();
         String userAgent = USER_AGENTS[random.nextInt(USER_AGENTS.length)];
         String language= SUPPORTED_LANGUAGES[random.nextInt(SUPPORTED_LANGUAGES.length)];
 
-        System.setProperty("webdriver.chrome.driver", "assets/chromedriver");
-
-        String proxyAddress = "104.19.138.4:80";  // Example: "192.168.1.100:8080"
-        Proxy proxy = new Proxy();
-        proxy.setHttpProxy(proxyAddress).setSslProxy(proxyAddress);
-
         ChromeOptions options = new ChromeOptions();
-        options.setProxy(proxy);
+
+        if (Math.random() < 0.25) {
+            Proxy proxy = new Proxy();
+            proxy.setHttpProxy(proxyAddress).setSslProxy(proxyAddress);
+            options.setProxy(proxy);
+        }
+
         options.addArguments("--disable-logging", "--log-level=3", "--disable-infobars", "--disable-extensions");
         options.addArguments("--window-size=1366,768", "--mute-audio", "--disable-notifications");
         options.addArguments("--user-agent=" + userAgent, "--lang=" + language);
