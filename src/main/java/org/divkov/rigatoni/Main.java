@@ -1,6 +1,7 @@
 package org.divkov.rigatoni;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,8 @@ class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        WebDriverManager.chromedriver().setup();
+
         ObjectMapper objectMapper = new ObjectMapper();
         Driver[] drivers = objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
         Controller controller = new Controller();

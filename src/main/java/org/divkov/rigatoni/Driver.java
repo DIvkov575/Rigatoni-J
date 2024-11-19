@@ -36,7 +36,7 @@ public class Driver {
         String userAgent = USER_AGENTS[random.nextInt(USER_AGENTS.length)];
         String language= SUPPORTED_LANGUAGES[random.nextInt(SUPPORTED_LANGUAGES.length)];
 
-        System.setProperty("webdriver.chrome.driver", "assets/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "assets/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-logging", "--log-level=3", "--disable-infobars", "--disable-extensions");
