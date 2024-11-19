@@ -22,14 +22,14 @@ class Main {
 
     public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Driver[] drivers= objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
+        Driver[] drivers = objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
         Controller controller = new Controller();
 
         Arrays.stream(Arrays.copyOfRange(drivers, 0, 1))
-            .forEach(driver -> {
-                 controller.initialization(drivers, driver);
-            });
+                .forEach(driver -> {
+                    controller.initialization(drivers, driver);
+                });
 
 
-
+    }
 }
