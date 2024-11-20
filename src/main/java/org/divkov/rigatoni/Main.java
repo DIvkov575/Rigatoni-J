@@ -1,19 +1,13 @@
 package org.divkov.rigatoni;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-class Main {
+
+public class Main {
 
     static void random_sleep(int a, int b) {
         double duration = 1000 * (Math.random() * Math.abs(b - a) + Math.min(a, b));
@@ -26,7 +20,7 @@ class Main {
         Driver[] drivers = objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
         Controller controller = new Controller();
 
-        Arrays.stream(Arrays.copyOfRange(drivers, 0, 1))
+        Arrays.stream(Arrays.copyOfRange(drivers, 0, 2))
                 .forEach(driver -> {
                     controller.initialization(drivers, driver);
                 });

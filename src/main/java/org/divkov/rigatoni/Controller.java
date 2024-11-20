@@ -3,10 +3,8 @@ package org.divkov.rigatoni;
 import lombok.Data;
 
 import java.time.LocalTime;
-import java.util.NoSuchElementException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 @Data
@@ -61,20 +59,19 @@ public class Controller {
     }
 
     public void initialization(Driver[] drivers, Driver driver ) {
-//        this.scheduler.schedule(() -> {
+        this.scheduler.schedule(() -> {
 
-//            assert (driver.getDriver() == null);
-
+            assert (driver.getDriver() == null);
             driver.init();
-//            driver.authenticate();
-//            Main.random_sleep(4, 6);
-//
-//            driver.play(driver.getPlayables()[0]);
+            driver.authenticate();
+            Main.random_sleep(4, 6);
 
-//            this.schedule_event(driver);
+            driver.play(driver.getPlayables()[0]);
 
-//            System.out.println("Driver" + driver.getUsername() + "initialized at" + LocalTime.now());
-//        }, (int) (Math.random() * 120 * 60_000), TimeUnit.MILLISECONDS);
+            this.schedule_event(driver);
+
+            System.out.println("Driver" + driver.getUsername() + "initialized at" + LocalTime.now());
+        }, (int) (Math.random() * 120 * 60_000), TimeUnit.MILLISECONDS);
 
     }
 
