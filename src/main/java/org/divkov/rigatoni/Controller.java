@@ -16,28 +16,10 @@ public class Controller {
             return playables[0];
         } else {
             return playables[(int)(Math.random() * playables.length)];
-//            return playables[ThreadLocalRandom.current().nextInt(playables.length)];
         }
 
     }
 
-//    static private Driver getDriver(Driver[] drivers, Driver driver_target) {
-//        for (Driver driver: drivers) {
-//            if (driver == driver_target) {
-//                return driver;
-//            }
-//        }
-//        throw new NoSuchElementException("couldn't locate driver with the username: " + username);
-//    }
-//
-//   static private Driver getDriver(Driver[] drivers, String username) {
-//       for (Driver driver: drivers) {
-//           if (driver.getUsername().equals(username)) {
-//               return driver;
-//           }
-//       }
-//       throw new NoSuchElementException("couldn't locate driver with the username: " + username);
-//   }
 
     public void schedule_event(Driver driver) {
         int delay = (6*60) + (int)(120 * (Math.random() - 0.5));
