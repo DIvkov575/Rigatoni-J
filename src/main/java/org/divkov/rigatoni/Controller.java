@@ -54,4 +54,9 @@ public class Controller {
         System.out.println("Driver" + driver.getUsername() + "initialized at" + LocalTime.now());
     }
 
+    public void shutdown(Driver driver) {
+        driver.close();
+
+    }
+
 }

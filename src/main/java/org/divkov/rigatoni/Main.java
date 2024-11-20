@@ -17,9 +17,16 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+
         ObjectMapper objectMapper = new ObjectMapper();
         Driver[] drivers = objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
         Controller controller = new Controller();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Arrays.stream(Arrays.copyOfRange(drivers, 0, drivers.length))
+                    .forEach(controller::shutdown);
+
+        }));
 
         Arrays.stream(Arrays.copyOfRange(drivers, 0, drivers.length))
                 .forEach(controller::initialization);
