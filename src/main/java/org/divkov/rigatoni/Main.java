@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class Main {
@@ -17,13 +19,21 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Driver[] drivers = objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
+        List<Driver> drivers = List.of(objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class));
+        Collections.shuffle(drivers);
         Controller controller = new Controller();
 
-        Arrays.stream(Arrays.copyOfRange(drivers, 0, 2))
-                .forEach(driver -> {
-                    controller.initialization(drivers, driver);
-                });
+
+//        if (args.length >= 1) {
+//            int n = Integer.parseInt(args[0])
+//        } else {
+//            int n = drivers.size();
+//        }
+
+
+        int n = drivers.size()
+        Arrays.stream(drivers.subList(0,n))
+                .forEach(controller::initialization);
 
 
     }

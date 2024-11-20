@@ -40,21 +40,18 @@ public class Controller {
         }, delay, TimeUnit.MINUTES);
     }
 
-    public void initialization(Driver[] drivers, Driver driver ) {
-        this.scheduler.schedule(() -> {
+    public void initialization(Driver driver ) {
 
-            assert (driver.getDriver() == null);
-            driver.init();
-            driver.authenticate();
-            Main.random_sleep(4, 6);
+        assert (driver.getDriver() == null);
+        driver.init();
+        driver.authenticate();
+        Main.random_sleep(4, 6);
 
-            driver.play(driver.getPlayables()[0]);
+        driver.play(driver.getPlayables()[0]);
 
-            this.schedule_event(driver);
+        this.schedule_event(driver);
 
-            System.out.println("Driver" + driver.getUsername() + "initialized at" + LocalTime.now());
-        }, (int) (Math.random() * 120 * 60_000), TimeUnit.MILLISECONDS);
-
+        System.out.println("Driver" + driver.getUsername() + "initialized at" + LocalTime.now());
     }
 
 }

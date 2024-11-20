@@ -23,3 +23,11 @@ Brightdata - (required authentication + issue with SSL) \
 Oxylabs - actual scammers - (Restrict target ips) \
 IPRoyal - valid as of now
 
+Hummanization
+---
+**Artist Dashboard**
+- Streams/listener
+- Active/Programmed listener ratio
+- Stream/save ratio  \
+**Listener** 
+- 
