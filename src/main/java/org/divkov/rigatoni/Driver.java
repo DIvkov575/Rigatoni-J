@@ -1,13 +1,12 @@
 package org.divkov.rigatoni;
 
 import lombok.Data;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -83,9 +82,11 @@ public class Driver {
 
     public void authenticate() {
         this.driver.get("https://www.spotify.com/us/login/");
+        this.awaitPageLoad();
 
         WebElement usernameInput = this.driver.findElement(By.id("login-username"));
         usernameInput.sendKeys(this.username);
+        this.awaitPageLoad();
         Main.random_sleep(1,3);
 
         // sometimes renders "username-only" page ∴ try-login to continue to password entry
@@ -107,6 +108,11 @@ public class Driver {
     public boolean isAsleep() {
         return this.state.isEmpty();
     }
+    public void awaitPageLoad() {
+        new WebDriverWait(this.driver, Duration.ofSeconds(1))
+                .until(webDriver -> ((JavascriptExecutor) webDriver)
+                        .executeScript("return document.readyState").equals("complete"));
+    }
 
     public void play(String url) {
         String xpath;
@@ -114,6 +120,7 @@ public class Driver {
 
         this.driver.get(url);
         this.setState(url);
+        this.awaitPageLoad();
         Main.random_sleep(4,6);
 
         String regex = "https://open\\.spotify\\.com/([^/]+)/";
