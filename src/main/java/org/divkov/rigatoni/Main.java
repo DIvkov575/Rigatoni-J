@@ -22,7 +22,7 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         Driver[] all_drivers = objectMapper.readValue(new File("./assets/accounts.json"), Driver[].class);
         Driver[] drivers = Arrays.copyOfRange(all_drivers, 0, all_drivers.length);
-        Collections.shuffle(List.of(drivers));
+
         Controller controller = new Controller();
 
 
