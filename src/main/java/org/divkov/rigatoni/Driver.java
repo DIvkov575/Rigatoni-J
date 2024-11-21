@@ -21,6 +21,7 @@ public class Driver {
             "sv-SE", "da-DK", "no-NO"
     };
 
+
     private static final String[] USER_AGENTS = {
             // Chrome (Windows)
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36",
@@ -67,11 +68,12 @@ public class Driver {
 
         ChromeOptions options = new ChromeOptions();
 
-        if (Math.random() < 0.25) {
-            Proxy proxy = new Proxy();
-            proxy.setHttpProxy(proxyAddress).setSslProxy(proxyAddress);
-            options.setProxy(proxy);
-        }
+//        if (Math.random() < 0.25) {
+        System.out.println("Using Proxy!");
+        Proxy proxy = new Proxy();
+        proxy.setHttpProxy(proxyAddress).setSslProxy(proxyAddress);
+        options.setProxy(proxy);
+//        }
 
         options.addArguments("--disable-logging", "--log-level=3", "--disable-infobars", "--disable-extensions");
         options.addArguments("--window-size=1366,768", "--mute-audio", "--disable-notifications");
