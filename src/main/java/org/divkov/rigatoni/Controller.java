@@ -32,11 +32,7 @@ public class Controller {
                 String playable = weightedRandomPlayablePick(driver.getPlayables());
                 driver.play(playable);
             }
-
             this.schedule_event(driver);
-
-
-
         }, delay, TimeUnit.MINUTES);
     }
 
